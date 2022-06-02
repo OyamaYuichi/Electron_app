@@ -11,4 +11,8 @@ function createWindow () {
   win.loadFile('index.html');
 }
 
-app.whenReady().then(createWindow);
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+}).whenReady().then(createWindow);
