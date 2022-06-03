@@ -14,28 +14,20 @@ function createWindow () {
   });
   win.loadFile('index.html');
 
-  win.flag = true;
   win.on('focus', (event)=>{
-    event.sender.flag = !event.sender.flag;
-    console.log('flag: ' + event.sender.flag);
+    var p = event.sender.getPosition();
+    var s = event.sender.getSize();
+    p[0] += 10;
+    p[1] += 10;
+    s[0] += 10;
+    s[1] += 10;
+    event.sender.setPosition(p[0], p[1], true);
+    event.sender.setSize(s[0], s[1], true);
+    var b = event.sender.getBounds();
+    console.log('new bounds: ' + '['
+      + b.x + ', ' + b.y + ', '
+      + b.width + ', ' + b.height + ']');
   });
-  win.on('will-move', (event)=>{
-    if (event.sender.flag) {
-      event.preventDefault();
-    }
-  });
-  win.on('move', (event)=>{
-      console.log(event.sender.getPosition());
-  });
-  win.on('will-resize', (event)=>{
-    if (!event.sender.flag) {
-      event.preventDefault();
-    }
-  });
-  win.on('resize', (event) => {
-    console.log(event.sender.getSize());
-  });
-
 }
 
 app.whenReady().then(createWindow);
