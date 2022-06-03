@@ -8,40 +8,34 @@ const html = '<html><head>'
   + '</body></html>';
 
 function createWindow () {
-  var fn = (event) => {
-    console.log('focus: ' + event.sender.id);
-  };
-  let win1 = new BrowserWindow( {
+  let win = new BrowserWindow( {
     width: 400,
-    height: 200
+    height: 250
   });
-  win1.loadFile('index.html');
-  win1.on('focus', fn);
-  let win2 = new BrowserWindow( {
-    width: 400,
-    height: 200
-  });
-  win2.loadFile('index.html');
-  win2.on('focus', fn);
-  // let win = new BrowserWindow( {
-  //   width: 1200,
-  //   height: 800,
-  //   show: false
-  // });
-  // win.loadURL('http://www.tuyano.com');
-  // win.on('ready-to-show', ()=>{
-  //   win.show();
-  // });
-  // win.on('show', ()=>{
-  //   console.log('show browser-window.');
-  // });
-  // win.loadFile('index.html');
+  win.loadFile('index.html');
 
-  // let win2 = new BrowserWindow({
-  //   width: 400,
-  //   height: 200
-  // });
-  // win2.loadFile('index.html');
+  win.flag = true;
+  win.on('focus', (event)=>{
+    event.sender.flag = !event.sender.flag;
+    console.log('flag: ' + event.sender.flag);
+  });
+  win.on('will-move', (event)=>{
+    if (event.sender.flag) {
+      event.preventDefault();
+    }
+  });
+  win.on('move', (event)=>{
+      console.log(event.sender.getPosition());
+  });
+  win.on('will-resize', (event)=>{
+    if (!event.sender.flag) {
+      event.preventDefault();
+    }
+  });
+  win.on('resize', (event) => {
+    console.log(event.sender.getSize());
+  });
+
 }
 
 app.whenReady().then(createWindow);
@@ -51,26 +45,4 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-// app.on('will-finish-launching', () => {
-//   console.log('will-finish-launching');
-// }).whenReady().then(createWindow);
-
-// app.on('browser-window-focus', (event) => {
-//   console.log('browser-window-focus: '
-//     + event.sender.id);
-// });
-
-// app.on('browser-window-blur', (event) => {
-//   console.log('browser-window-blur: '
-//     + event.sender.id);
-// });
-
-// app.on('browser-window-created', (event) => {
-//   console.log('browser-window-created');
-// });
-
-// app.on('web-contents-created', (event) => {
-//   console.log('web-contents-created');
-// });
 
