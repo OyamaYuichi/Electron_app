@@ -12,22 +12,24 @@ function createWindow () {
     width: 400,
     height: 250
   });
-  win.loadFile('index.html');
-
-  win.on('focus', (event)=>{
-    var p = event.sender.getPosition();
-    var s = event.sender.getSize();
-    p[0] += 10;
-    p[1] += 10;
-    s[0] += 10;
-    s[1] += 10;
-    event.sender.setPosition(p[0], p[1], true);
-    event.sender.setSize(s[0], s[1], true);
-    var b = event.sender.getBounds();
-    console.log('new bounds: ' + '['
-      + b.x + ', ' + b.y + ', '
-      + b.width + ', ' + b.height + ']');
+  let webc = win.webContents;
+  webc.on('new-window', ()=>{
+    console.log('new-window.');
   });
+  webc.on('did-finish-load', ()=>{
+    console.log('did-finish-load.');
+  });
+  webc.on('dom-ready', ()=>{
+    console.log('dom-ready.');
+  });
+  webc.on('will-navigate', ()=>{
+    console.log('will-navigate.');
+  });
+  webc.on('did-navigate', ()=>{
+    console.log('did-navigate.');
+  });
+
+  win.loadFile('index.html');
 }
 
 app.whenReady().then(createWindow);
