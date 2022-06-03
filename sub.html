@@ -6,7 +6,7 @@
   <title>Sample App</title>
 </head>
 <body>
-  <h1>hello world</h1>
+  <h1>sub window</h1>
   <p id="msg">This is sample application!</p>
   <div>
     <button onclick="doAction();">CLICK</button>
@@ -15,8 +15,7 @@
 <script>
 var counter = 0;
 function doAction() {
-  let p = document.querySelector("#msg");
-  p.textContent = "count: " + ++counter;
+  window.close();
 }
 </script>
 </html>
