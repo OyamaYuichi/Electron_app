@@ -1,19 +1,39 @@
-const { app, BrowserView, BrowserWindow } = require('electron');
+const { app, Menu, MenuItem, BrowserWindow } = require('electron');
 
 function createWindow () {
   let win = new BrowserWindow( {
     width: 600,
     height: 400
   });
-  win.loadFile('index.html');
-
-  const view = new BrowserView();
-  view.webContents.loadURL('https://google.com');
-
-  win.setBrowserView(view);
-  view.setBounds({ x: 200, y: 150, width: 300, height: 150 });
 }
 
+function createMenu () {
+  let menu = new Menu();
+
+  let file = new MenuItem({
+    label: 'File',
+    submenu: [
+      new MenuItem({ label: 'New'}),
+      new MenuItem({ label: 'File'}),
+      new MenuItem({ label: 'Quit'})
+    ]
+  });
+  menu.append(file);
+
+  let edit = new MenuItem({
+    label: 'Edit',
+    submenu: [
+      new MenuItem({ label: 'Cut'}),
+      new MenuItem({ label: 'Copy'}),
+      new MenuItem({ label: 'Paste'})
+    ]
+  });
+  menu.append(edit);
+
+  Menu.setApplicationMenu(menu);
+}
+
+createMenu();
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
