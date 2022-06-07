@@ -21,16 +21,22 @@ function createMenu () {
           console.log('File menu.');
           createWindow();
         }},
+        {role: 'close'},
         {type: 'separator'},
         {role: 'quit'}
       ]
     },
+    {role: 'editMenu'},
+    {role: 'viewMenu'},
+    {role: 'windowMenu'},
     {
-      label: 'Edit',
+      label: 'Help',
       submenu: [
-        {role: 'cut'},
-        {role: 'copy'},
-        {role: 'paste'}
+        {role: 'about'},
+        {type: 'separator'},
+        {role: 'reload'},
+        {role: 'zoomIn'},
+        {role: 'zoomOut'},
       ]
     }
   ];
