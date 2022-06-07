@@ -1,10 +1,11 @@
 const { app, Menu, MenuItem, BrowserWindow } = require('electron');
 
 function createWindow () {
-  let win = new BrowserWindow( {
+  win = new BrowserWindow( {
     width: 600,
     height: 400
   });
+  win.loadFile('index.html');
 }
 
 function createMenu () {
@@ -16,11 +17,20 @@ function createMenu () {
           console.log('New menu.');
           createWindow();
         }},
+        {label: 'File', click: ()=>{
+          console.log('File menu.');
+          createWindow();
+        }},
         {type: 'separator'},
-        {label: 'Quit', click: ()=>{
-          console.log('Quit menu.');
-          app.quit();
-        }}
+        {role: 'quit'}
+      ]
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        {role: 'cut'},
+        {role: 'copy'},
+        {role: 'paste'}
       ]
     }
   ];
