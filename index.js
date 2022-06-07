@@ -12,18 +12,15 @@ function createMenu () {
     {
       label: 'File',
       submenu: [
-        {label: 'New'},
-        {label: 'File'},
+        {label: 'New', click: ()=>{
+          console.log('New menu.');
+          createWindow();
+        }},
         {type: 'separator'},
-        {label: 'Quit'}
-      ]
-    },
-    {
-      label: 'Edit',
-      submenu: [
-        {label: 'Cut' },
-        {label: 'Copy' },
-        {label: 'Paste'}
+        {label: 'Quit', click: ()=>{
+          console.log('Quit menu.');
+          app.quit();
+        }}
       ]
     }
   ];
